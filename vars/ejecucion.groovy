@@ -15,6 +15,7 @@ def call(){
 		
 		parameters {
 			choice choices: ['gradle', 'maven'], description: 'Indicar la herramienta de construccion.', name: 'buildTool'
+			string(name: 'Stage', defaultValue: '', description: 'Ingresar los Stages de ejecución separados por ;')
 		}
 
 		stages {
@@ -22,12 +23,14 @@ def call(){
 				steps {
 					script {
 						println 'Pipeline'
+						
+						def ci_or_cd = verifyBranchName()
+						
 						if (params.buildTool == 'gradle'){
-							def ejecucion = load 'gradle.groovy'
-							ejecucion.call()
+							gradle()
 						} else {
 							def ejecucion = load 'maven.groovy'
-							ejecucion.call()
+							maven()
 						}
 					}
 				}
@@ -48,5 +51,15 @@ def call(){
 	}
 
 }
+
+def verifyBranchName(){
+	//def CiOrCd = (env.GIT_BRANCH.contains('feature-') ) ? 'CI' : 'CD'
+	if (env.GIT_BRANCH.contains('feature-') || env.GIT_BRANCH.contains('develop')){
+		return 'CI'
+	} else {
+		return 'CD'
+	}
+}
+
 
 return this;
