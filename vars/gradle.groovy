@@ -9,7 +9,7 @@ def call(){
 	if (params.Stage.contains('build')) {
 	  stage('Build & Unit Test'){
 			STAGE = env.STAGE_NAME
-			figlet "${STAGE}"
+			figlet 'build'
 			bat "gradle clean build"
 		}
 	} else { println 'No ha especificado ejecutar el Stage: BUILD' }
