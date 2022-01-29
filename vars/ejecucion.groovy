@@ -15,7 +15,7 @@ def call(){
 		
 		parameters {
 			choice choices: ['gradle', 'maven'], description: 'Indicar la herramienta de construccion.', name: 'buildTool'
-			string(name: 'Stage', defaultValue: '', description: 'Ingresar los Stages de ejecución separados por ;')
+			string(name: 'Stage', defaultValue: '', description: 'Ingresar los Stages de ejecucion')
 		}
 
 		stages {
@@ -42,7 +42,7 @@ def call(){
 				slackSend channel: '#jenkins-ci', color: 'normal', message: 'Job Name: ' + env.JOB_NAME + ', BuildTool: ' +  params.buildTool + '.', teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-token'
 			}
 			success{
-				slackSend channel: '#jenkins-ci', color: '#29AE4A', message: 'Ejecucion exitosa.', teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-token'
+				slackSend channel: '#jenkins-ci', color: '#29AE4A', message: 'Ejecucion exitosa. Se han ejecutado los siguientes Stages: ' + params.Stage + '.', teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-token'
 			}
 			failure {
 				slackSend channel: '#jenkins-ci', color: '#EC4D34', message: 'Ejecucion Fallida en Stage: ' + "${STAGE}" + '.', teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-token'
