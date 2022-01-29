@@ -27,10 +27,10 @@ def call(){
 						def ci_or_cd = verifyBranchName()
 						
 						if (params.buildTool == 'gradle'){
-							gradle()
+							gradle(verifyBranchName())
 						} else {
 							def ejecucion = load 'maven.groovy'
-							maven()
+							maven(verifyBranchName())
 						}
 					}
 				}
