@@ -8,6 +8,7 @@ def call(){
 	if (params.Stage.contains('compile')) {
 		stage('Compile') {
 			STAGE = env.STAGE_NAME
+			figlet ${STAGE}
 	        bat "mvn clean compile -e"
 	    }
 	} else { println 'No ha especificado ejecutar el Stage: COMPILE' }
