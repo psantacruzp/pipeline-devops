@@ -13,7 +13,7 @@ def call(String pipelineType){
 		  stage('Build & Unit Test'){
 				STAGE = env.STAGE_NAME
 				figlet "${STAGE}"
-				bat "gradle clean build"
+				bat "gradle clean build bootJar"
 			}
 		} else { println 'No ha especificado ejecutar el Stage: BUILD' }
 		
